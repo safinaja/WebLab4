@@ -1,0 +1,63 @@
+.submit-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.error-message {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: rgba(255, 82, 82, 0.1);
+    color: #ff5252;
+    border: 1px solid #ff5252;
+    border-radius: 8px;
+    animation: slideIn 0.3s ease;
+    font-size: 14px;
+}
+
+.success-message {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+    border-radius: 8px;
+    animation: slideIn 0.3s ease;
+    font-size: 14px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
