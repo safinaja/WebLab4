@@ -1,0 +1,42 @@
+package org.example.final4.ejb;
+
+import org.example.final4.entity.User;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import org.mindrot.jbcrypt.BCrypt;
+
+@Stateless
+public class AuthService {
+
+    @Inject
+    private DataBaseService dataBaseService;
+
+    public boolean userExists(String login) {
+        return dataBaseService.findUserByLogin(login) != null;
+    }
+
+    public boolean authenticate(String login, String rawPassword) {
+        User user = dataBaseService.findUserByLogin(login);
+        if (user == null) {
+            return false;
+        }
+
+        return BCrypt.checkpw(rawPassword, user.getPasswordHash());
+    }
+
+    public boolean registerUser(String login, String rawPassword) {
+        if (login == null || login.trim().isEmpty() || rawPassword == null || rawPassword.length() < 4) {
+            return false;
+        }
+
+        if (userExists(login)) {
+            return false;
+        }
+
+        String hash = BCrypt.hashpw(rawPassword, BCrypt.gensalt(12));
+        User user = new User(login.trim(), hash);
+
+        dataBaseService.saveUser(user);
+        return true;
+    }
+}
